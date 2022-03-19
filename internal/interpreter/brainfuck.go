@@ -10,6 +10,7 @@ func Interpret(program string)  {
 	for _, o := range operations {
 		o.Execute(m)
 	}
+	fmt.Println()
 }
 
 func findCommands(program string) []operation {
