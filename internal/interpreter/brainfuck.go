@@ -2,7 +2,7 @@ package interpreter
 
 import "fmt"
 
-func Interpret(program string)  {
+func Interpret(program string) {
 	operations := findCommands(program)
 
 	m := newMemory(memorySize)
@@ -10,7 +10,7 @@ func Interpret(program string)  {
 	for _, o := range operations {
 		o.Execute(m)
 	}
-	fmt.Println()
+	fmt.Print("\n")
 }
 
 func findCommands(program string) []operation {
