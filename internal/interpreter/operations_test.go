@@ -28,8 +28,11 @@ func TestIncrementCell_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
 			tt.operation.execute(tt.memory)
+			// nolint scopelint
 			res := tt.memory
+			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
@@ -60,8 +63,11 @@ func TestDecrementCell_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
 			tt.operation.execute(tt.args)
+			// nolint scopelint
 			res := tt.args
+			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
@@ -92,8 +98,11 @@ func TestIncrementPointer_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
 			tt.operation.execute(tt.memory)
+			// nolint scopelint
 			res := tt.memory
+			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
@@ -124,8 +133,11 @@ func TestDecrementPointer_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
 			tt.operation.execute(tt.memory)
+			// nolint scopelint
 			res := tt.memory
+			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
@@ -170,16 +182,18 @@ func TestLoop_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
 			if tt.preOperations != nil {
+				// nolint scopelint
 				for _, o := range tt.preOperations {
 					o.execute(tt.args)
 				}
 			}
-
+			// nolint scopelint
 			l := loop{innerOperations: tt.loopCommands}
-
+			// nolint scopelint
 			l.execute(tt.args)
-
+			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *tt.args) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, tt.args)
 			}
