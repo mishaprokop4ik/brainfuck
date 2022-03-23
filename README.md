@@ -2,6 +2,18 @@
 
 Simple brainfuck interpreter for options to extensions
 
+## Tests
+Unit tests coverage: 91.4% of statements. Manual tests:   
+in: >++++++++[<+++++++++>-]
+<.>++++[<+++++++>-]
+<+.+++++++..+++.>>++++++[<+++++++>-]
+<++.------------.>++++++[<+++++++++>-]
+<+.<.+++.------.--------.>>>++++[<++++++++>-]
+<+.  
+expected: Hello, World!  
+out: Hello, World!
+
+
 ## Installation
 
 Use the git to install interpreter.
