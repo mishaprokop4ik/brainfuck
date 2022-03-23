@@ -8,7 +8,7 @@ func Interpret(program string) {
 	m := newMemory(memorySize)
 
 	for _, o := range operations {
-		o.Execute(m)
+		o.execute(m)
 	}
 	fmt.Println()
 }

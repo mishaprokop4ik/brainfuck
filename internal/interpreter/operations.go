@@ -3,22 +3,22 @@ package interpreter
 import "fmt"
 
 type operation interface {
-	Execute(m *memory)
+	execute(m *memory)
 }
 
-type IncrementPointer struct {}
+type IncrementPointer struct{}
 
-func (IncrementPointer) Execute(m *memory) {
-	if m.pointer == len(m.cells) - 1 {
+func (IncrementPointer) execute(m *memory) {
+	if m.pointer == len(m.cells)-1 {
 		m.pointer = 0
 	} else {
 		m.pointer++
 	}
 }
 
-type DecrementPointer struct {}
+type DecrementPointer struct{}
 
-func (DecrementPointer) Execute(m *memory) {
+func (DecrementPointer) execute(m *memory) {
 	if m.pointer == 0 {
 		m.pointer = len(m.cells) - 1
 	} else {
@@ -26,21 +26,21 @@ func (DecrementPointer) Execute(m *memory) {
 	}
 }
 
-type IncrementCell struct {}
+type IncrementCell struct{}
 
-func (IncrementCell) Execute(m *memory) {
+func (IncrementCell) execute(m *memory) {
 	m.cells[m.pointer]++
 }
 
-type DecrementCell struct {}
+type DecrementCell struct{}
 
-func (DecrementCell) Execute(m *memory) {
+func (DecrementCell) execute(m *memory) {
 	m.cells[m.pointer]--
 }
 
-type Output struct {}
+type Output struct{}
 
-func (Output) Execute(m *memory) {
+func (Output) execute(m *memory) {
 	fmt.Print(string(m.cells[m.pointer]))
 }
 
@@ -48,10 +48,10 @@ type Loop struct {
 	innerOperations []operation
 }
 
-func (l *Loop) Execute(m *memory) {
+func (l *Loop) execute(m *memory) {
 	for m.cells[m.pointer] != 0 {
 		for _, o := range l.innerOperations {
-			o.Execute(m)
+			o.execute(m)
 		}
 	}
 }
