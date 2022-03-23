@@ -8,16 +8,17 @@ import (
 )
 
 var programPath = flag.String("f", "", "brainfuck program file path")
+
 const defaultDataIn string = ">++++++++[<+++++++++>-]<.>++++[<+++++++>-]<+.+++++++..+++.>>++++++[<+++++++>-]<++.------------.>++++++[<+++++++++>-]<+.<.+++.------.--------.>>>++++[<++++++++>-]<+.\n"
 
-func main()  {
+func main() {
 	flag.Parse()
 	fromFile := true
 	if *programPath == "" {
 		*programPath = defaultDataIn
 		fromFile = false
 	}
-	dataIn, err := input.NewFile(*programPath,  fromFile)
+	dataIn, err := input.NewFile(*programPath, fromFile)
 	if err != nil {
 		log.Fatal(err)
 	}
