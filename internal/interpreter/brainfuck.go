@@ -2,7 +2,7 @@ package interpreter
 
 import "fmt"
 
-func Interpret(program string)  {
+func Interpret(program string) {
 	operations := findCommands(program)
 
 	m := newMemory(memorySize)
@@ -19,7 +19,7 @@ func findCommands(program string) []operation {
 		if o, ok := commands[symbol]; ok {
 			o(stack)
 		} else {
-			panic(fmt.Sprintf("unexpected symbol in brainfuck %s in %d place", string(symbol), i+1))
+			panic(fmt.Sprintf("unexpected symbol in brainfuck %s in %d place", symbol, i+1))
 		}
 	}
 
