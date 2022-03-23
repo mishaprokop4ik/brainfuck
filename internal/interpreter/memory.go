@@ -3,7 +3,7 @@ package interpreter
 const memorySize int = 30000
 
 type memory struct {
-	cells []byte
+	cells   []byte
 	pointer int
 }
 
@@ -15,13 +15,13 @@ func newMemory(m int) *memory {
 }
 
 func addOperation(stack *[][]operation, o operation) {
-	operations := (*stack)[len(*stack) - 1]
-	(*stack)[len(*stack) - 1] = append(operations, o)
+	operations := (*stack)[len(*stack)-1]
+	(*stack)[len(*stack)-1] = append(operations, o)
 }
 
 type instruction func(stack *[][]operation)
 
-var commands = map[rune]instruction{
+var instructions = map[rune]instruction{
 	'>': func(stack *[][]operation) {
 		addOperation(stack, IncrementPointer{})
 	},
@@ -41,8 +41,8 @@ var commands = map[rune]instruction{
 		*stack = append(*stack, []operation{})
 	},
 	']': func(stack *[][]operation) {
-		loopStack := (*stack)[len(*stack) - 1]
-		*stack = (*stack)[:len(*stack) - 1]
+		loopStack := (*stack)[len(*stack)-1]
+		*stack = (*stack)[:len(*stack)-1]
 		addOperation(stack, &Loop{innerOperations: loopStack})
 	},
 }
