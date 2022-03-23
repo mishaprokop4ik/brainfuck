@@ -8,11 +8,15 @@ import (
 	"strings"
 )
 
+// File it is an input file that provides options
+// to read data and save it independently of it was read from file
+// or just from variable
 type File struct {
 	path string
 	text string
 }
 
+// NewFile create new input File and remove spec symbols from input
 func NewFile(param string, isFile bool) (*File, error) {
 	var f = &File{}
 	if isFile {
