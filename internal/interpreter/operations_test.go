@@ -22,13 +22,13 @@ func TestIncrementCell_Execute(t *testing.T) {
 				cells:   []byte{1, 0},
 				pointer: 0,
 			},
-			operation: IncrementCell{},
+			operation: incrementCell{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.operation.Execute(tt.memory)
+			tt.operation.execute(tt.memory)
 			res := tt.memory
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
@@ -54,13 +54,13 @@ func TestDecrementCell_Execute(t *testing.T) {
 				cells:   []byte{0, 0},
 				pointer: 0,
 			},
-			operation: DecrementCell{},
+			operation: decrementCell{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.operation.Execute(tt.args)
+			tt.operation.execute(tt.args)
 			res := tt.args
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
@@ -86,13 +86,13 @@ func TestIncrementPointer_Execute(t *testing.T) {
 				cells:   []byte{},
 				pointer: 1,
 			},
-			operation: IncrementPointer{},
+			operation: incrementPointer{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.operation.Execute(tt.memory)
+			tt.operation.execute(tt.memory)
 			res := tt.memory
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
@@ -118,13 +118,13 @@ func TestDecrementPointer_Execute(t *testing.T) {
 				cells:   []byte{},
 				pointer: 0,
 			},
-			operation: DecrementPointer{},
+			operation: decrementPointer{},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.operation.Execute(tt.memory)
+			tt.operation.execute(tt.memory)
 			res := tt.memory
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
@@ -147,12 +147,12 @@ func TestLoop_Execute(t *testing.T) {
 				cells:   make([]byte, 5),
 				pointer: 0,
 			},
-			preOperations: []operation{IncrementCell{}, IncrementCell{}, IncrementCell{}, IncrementCell{}, IncrementCell{}},
+			preOperations: []operation{incrementCell{}, incrementCell{}, incrementCell{}, incrementCell{}, incrementCell{}},
 			expected: memory{
 				cells:   make([]byte, 5),
 				pointer: 0,
 			},
-			loopCommands: []operation{DecrementCell{}},
+			loopCommands: []operation{decrementCell{}},
 		},
 		{
 			name: "loop execute with zero value pointer",
@@ -164,7 +164,7 @@ func TestLoop_Execute(t *testing.T) {
 				cells:   make([]byte, 5),
 				pointer: 0,
 			},
-			loopCommands: []operation{IncrementPointer{}, IncrementCell{}},
+			loopCommands: []operation{incrementPointer{}, incrementCell{}},
 		},
 	}
 
@@ -172,13 +172,13 @@ func TestLoop_Execute(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.preOperations != nil {
 				for _, o := range tt.preOperations {
-					o.Execute(tt.args)
+					o.execute(tt.args)
 				}
 			}
 
-			l := Loop{innerOperations: tt.loopCommands}
+			l := loop{innerOperations: tt.loopCommands}
 
-			l.Execute(tt.args)
+			l.execute(tt.args)
 
 			if !reflect.DeepEqual(tt.expected, *tt.args) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, tt.args)
