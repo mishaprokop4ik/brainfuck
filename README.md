@@ -15,7 +15,7 @@ git clone https://github.com/mishaprokop4ik/brainfuck
 Go to brainfuck folder
 
 ```bash
-go run cmd/main.go -f brainfuck_example.b
+go run main.go -f brainfuck_example.b
 or
 go run cmd/main.go
 ```

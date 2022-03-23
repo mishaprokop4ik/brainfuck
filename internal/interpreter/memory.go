@@ -23,19 +23,19 @@ type instruction func(stack *[][]operation)
 
 var instructions = map[rune]instruction{
 	'>': func(stack *[][]operation) {
-		addOperation(stack, IncrementPointer{})
+		addOperation(stack, incrementPointer{})
 	},
 	'<': func(stack *[][]operation) {
-		addOperation(stack, DecrementPointer{})
+		addOperation(stack, decrementPointer{})
 	},
 	'+': func(stack *[][]operation) {
-		addOperation(stack, IncrementCell{})
+		addOperation(stack, incrementCell{})
 	},
 	'-': func(stack *[][]operation) {
-		addOperation(stack, DecrementCell{})
+		addOperation(stack, decrementCell{})
 	},
 	'.': func(stack *[][]operation) {
-		addOperation(stack, Output{})
+		addOperation(stack, output{})
 	},
 	'[': func(stack *[][]operation) {
 		*stack = append(*stack, []operation{})
@@ -43,6 +43,6 @@ var instructions = map[rune]instruction{
 	']': func(stack *[][]operation) {
 		loopStack := (*stack)[len(*stack)-1]
 		*stack = (*stack)[:len(*stack)-1]
-		addOperation(stack, &Loop{innerOperations: loopStack})
+		addOperation(stack, &loop{innerOperations: loopStack})
 	},
 }
