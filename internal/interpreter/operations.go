@@ -55,7 +55,7 @@ func (decrementCell) execute(m *memory) {
 type output struct{}
 
 func (output) execute(m *memory) {
-	fmt.Print(string(m.cells[m.pointer]))
+	fmt.Fprint(m.out, string(m.cells[m.pointer]))
 }
 
 // loop implements operation interface

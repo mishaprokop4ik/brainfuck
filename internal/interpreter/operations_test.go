@@ -1,9 +1,41 @@
 package interpreter
 
 import (
+	"bytes"
 	"reflect"
 	"testing"
 )
+
+func TestOutput_Execute(t *testing.T) {
+	tests := []struct {
+		name      string
+		memory    *memory
+		operation operation
+		expected  *bytes.Buffer
+	}{
+		{
+			name: "output big A",
+			memory: &memory{
+				cells:   []byte{65},
+				pointer: 0,
+				out:     new(bytes.Buffer),
+			},
+			operation: output{},
+			expected:  bytes.NewBuffer([]byte{65}),
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// nolint scopelint
+			tt.operation.execute(tt.memory)
+			// nolint scopelint
+			if !reflect.DeepEqual(tt.memory.out, tt.expected) {
+				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, tt.memory.out)
+			}
+		})
+	}
+}
 
 func TestIncrementCell_Execute(t *testing.T) {
 	tests := []struct {

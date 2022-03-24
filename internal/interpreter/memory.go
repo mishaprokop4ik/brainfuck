@@ -1,16 +1,20 @@
 package interpreter
 
+import "io"
+
 const memorySize int = 30000
 
 type memory struct {
 	cells   []byte
 	pointer int
+	out     io.Writer
 }
 
-func newMemory(size int) *memory {
+func newMemory(size int, output io.Writer) *memory {
 	return &memory{
 		cells:   make([]byte, size),
 		pointer: 0,
+		out:     output,
 	}
 }
 

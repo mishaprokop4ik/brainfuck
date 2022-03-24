@@ -1,12 +1,15 @@
 package interpreter
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 // Interpret run brainfuck programs
 func Interpret(program string) {
 	operations := findCommands(program)
 
-	m := newMemory(memorySize)
+	m := newMemory(memorySize, os.Stdout)
 
 	for _, o := range operations {
 		o.execute(m)
