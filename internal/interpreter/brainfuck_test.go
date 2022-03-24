@@ -5,15 +5,17 @@ import (
 	"testing"
 )
 
+func ExampleInterpretHelloWorld() {
+	Interpret("-[------->+<]>-.-[->+++++<]>++.+++++++..+++.[--->+<]>-----.--[->++++<]>-.--------.+++.------.--------.-[--->+<]>.")
+	// Output:
+	// Hello world!
+}
+
 func TestInterpret(t *testing.T) {
 	tests := []struct {
 		name string
 		args string
 	}{
-		{
-			"hello world program",
-			"-[------->+<]>-.-[->+++++<]>++.+++++++..+++.[--->+<]>-----.--[->++++<]>-.--------.+++.------.--------.-[--->+<]>.",
-		},
 		{
 			"unexpected symbol",
 			"p",
