@@ -2,3 +2,4 @@
 /.git/
 brainfuck.iml
 .DS_Store
+/bin/
