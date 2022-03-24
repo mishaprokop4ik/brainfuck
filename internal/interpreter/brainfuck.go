@@ -2,6 +2,7 @@ package interpreter
 
 import "fmt"
 
+// Interpret run brainfuck programs
 func Interpret(program string) {
 	operations := findCommands(program)
 
