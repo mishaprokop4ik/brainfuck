@@ -3,16 +3,10 @@
 Simple brainfuck interpreter for options to extensions
 
 ## Tests
-Unit tests coverage: 91.4% of statements. Manual tests:   
-in: >++++++++[<+++++++++>-]
-<.>++++[<+++++++>-]
-<+.+++++++..+++.>>++++++[<+++++++>-]
-<++.------------.>++++++[<+++++++++>-]
-<+.<.+++.------.--------.>>>++++[<++++++++>-]
-<+.  
-expected: Hello, World!  
-out: Hello, World!
-
+#### To run tests run from cmd write:
+```bash
+make test
+```
 
 ## Installation
 
