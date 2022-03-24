@@ -179,21 +179,19 @@ func TestDecrementPointer_Execute(t *testing.T) {
 
 func TestLoop_Execute(t *testing.T) {
 	tests := []struct {
-		name          string
-		args          *memory
-		expected      memory
-		preOperations []operation
-		loopCommands  []operation
+		name         string
+		args         *memory
+		expected     memory
+		loopCommands []operation
 	}{
 		{
 			name: "loop execute with non zero value pointer",
 			args: &memory{
-				cells:   make([]byte, 5),
+				cells:   []byte{5},
 				pointer: 0,
 			},
-			preOperations: []operation{incrementCell{}, incrementCell{}, incrementCell{}, incrementCell{}, incrementCell{}},
 			expected: memory{
-				cells:   make([]byte, 5),
+				cells:   []byte{0},
 				pointer: 0,
 			},
 			loopCommands: []operation{decrementCell{}},
@@ -214,13 +212,6 @@ func TestLoop_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// nolint scopelint
-			if tt.preOperations != nil {
-				// nolint scopelint
-				for _, o := range tt.preOperations {
-					o.execute(tt.args)
-				}
-			}
 			// nolint scopelint
 			l := loop{innerOperations: tt.loopCommands}
 			// nolint scopelint
