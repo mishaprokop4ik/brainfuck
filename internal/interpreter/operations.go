@@ -6,8 +6,8 @@ type operation interface {
 	execute(m *memory)
 }
 
-// incrementPointer it is a struct that implement operation interface
-// it increment pointer by one
+// incrementPointer implements operation interface
+// it increments pointer by one
 // if pointer points to the last cell
 // pointer moves to the start
 type incrementPointer struct{}
@@ -20,7 +20,7 @@ func (incrementPointer) execute(m *memory) {
 	}
 }
 
-// decrementPointer it is a struct that implement operation interface
+// decrementPointer implements operation interface
 // it increment pointer by one
 // if pointer points to the first cell
 // pointer moves to the end
@@ -34,7 +34,7 @@ func (decrementPointer) execute(m *memory) {
 	}
 }
 
-// incrementCell it is a struct that implement operation interface
+// incrementCell implements operation interface
 // add to the current cell one
 type incrementCell struct{}
 
@@ -42,7 +42,7 @@ func (incrementCell) execute(m *memory) {
 	m.cells[m.pointer]++
 }
 
-// decrementCell it is a struct that implement operation interface
+// decrementCell implements operation interface
 // minus to the current cell one
 type decrementCell struct{}
 
@@ -50,7 +50,7 @@ func (decrementCell) execute(m *memory) {
 	m.cells[m.pointer]--
 }
 
-// output it is a struct that implement operation interface
+// output implements operation interface
 // output current cell to stdout from byte to ASCII symbol
 type output struct{}
 
@@ -58,7 +58,7 @@ func (output) execute(m *memory) {
 	fmt.Print(string(m.cells[m.pointer]))
 }
 
-// loop it is a struct that implement operation interface
+// loop implements operation interface
 // operation in loop will be reproduced while current cell != zero
 type loop struct {
 	innerOperations []operation

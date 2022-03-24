@@ -7,9 +7,9 @@ type memory struct {
 	pointer int
 }
 
-func newMemory(m int) *memory {
+func newMemory(size int) *memory {
 	return &memory{
-		cells:   make([]byte, m),
+		cells:   make([]byte, size),
 		pointer: 0,
 	}
 }
