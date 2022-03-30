@@ -13,7 +13,7 @@ make test
 Use the git to install interpreter.
 
 ```bash
-git clone https://github.com/mishaprokop4ik/brainfuck
+go get github.com/mishaprokop4ik/brainfuck
 ```
 
 ## Usage
@@ -22,8 +22,32 @@ Go to brainfuck folder
 
 ```bash
 go run main.go -f brainfuck_example.b
+```
 or
-go run cmd/main.go
+```bash
+go run main.go
+```
+
+## Make operations
+Run tests
+```bash
+make test
+```
+make golint 
+```bash
+make lint
+```
+fmt project
+```bash
+make fmt
+```
+Pre commit operations: fmt lint and test operations
+```bash
+make precommit
+```
+build binary file of project
+```bash
+make build
 ```
 
 ## Contributing
