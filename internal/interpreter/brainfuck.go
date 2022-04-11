@@ -10,7 +10,7 @@ import (
 // These operations will be converted into go methods
 // and after it all methods will be run
 // if some unexpected symbol in input - will be panic
-// if out is nil will be os,Stdout as out
+// if out is nil will be os.Stdout as out
 func Interpret(program string, out *io.Writer) {
 	operations := findOperations(program)
 	var m *memory
