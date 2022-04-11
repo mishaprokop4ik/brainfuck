@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-// Interpret get an brainfuck operations as a string.
+// Interpret gets a brainfuck operations as a string.
 // These operations will be converted into go methods
 // and after it all methods will be run
 // if some unexpected symbol in input - will be panic

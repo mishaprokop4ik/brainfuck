@@ -1,5 +1,5 @@
 GOLINT := golangci-lint
-BIN_NAME := payroll
+BIN_NAME := brainfuck
 
 test: ## run all test
 	go test -cover ./...

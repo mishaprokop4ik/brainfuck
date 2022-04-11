@@ -10,7 +10,7 @@ make test
 
 ## Installation
 
-Use the git to install interpreter.
+Use the go get to install interpreter.
 
 ```bash
 go get github.com/mishaprokop4ik/brainfuck
@@ -29,11 +29,7 @@ go run main.go
 ```
 
 ## Make operations
-Run tests
-```bash
-make test
-```
-make golint 
+lint project by golint 
 ```bash
 make lint
 ```
