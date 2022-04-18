@@ -2,23 +2,15 @@ package interpreter
 
 import (
 	"fmt"
-	"io"
-	"os"
 )
 
 // Interpret gets a brainfuck operations as a string.
 // These operations will be converted into go methods
 // and after it all methods will be run
-// if some unexpected symbol in input - will be panic
-// if out is nil will be os.Stdout as out
-func Interpret(program string, out *io.Writer) {
+// if some unexpected symbol in input - program will panic
+func Interpret(program string) {
 	operations := findOperations(program)
-	var m *memory
-	if out != nil {
-		m = newMemory(memorySize, *out)
-	} else {
-		m = newMemory(memorySize, os.Stdout)
-	}
+	m := newMemory(memorySize)
 
 	for _, o := range operations {
 		o.execute(m)

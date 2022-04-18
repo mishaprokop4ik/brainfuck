@@ -1,12 +1,24 @@
+//nolint
 package interpreter
 
 import (
 	"bytes"
+	"io/ioutil"
+	"os"
 	"reflect"
 	"testing"
 )
 
 func TestOutput_Execute(t *testing.T) {
+	stdout := os.Stdout
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stdout = w
+	defer func() {
+		os.Stdout = stdout
+	}()
 	tests := []struct {
 		name      string
 		memory    *memory
@@ -18,7 +30,6 @@ func TestOutput_Execute(t *testing.T) {
 			memory: &memory{
 				cells:   []byte{65},
 				pointer: 0,
-				out:     new(bytes.Buffer),
 			},
 			operation: output{},
 			expected:  bytes.NewBuffer([]byte{65}),
@@ -27,11 +38,14 @@ func TestOutput_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// nolint scopelint
 			tt.operation.execute(tt.memory)
-			// nolint scopelint
-			if !reflect.DeepEqual(tt.memory.out, tt.expected) {
-				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, tt.memory.out)
+			w.Close()
+			res, err := ioutil.ReadAll(r)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !reflect.DeepEqual(tt.expected.Bytes(), res) {
+				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
 		})
 	}
@@ -60,11 +74,8 @@ func TestIncrementCell_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// nolint scopelint
 			tt.operation.execute(tt.memory)
-			// nolint scopelint
 			res := tt.memory
-			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *res) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, res)
 			}
@@ -212,11 +223,8 @@ func TestLoop_Execute(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// nolint scopelint
 			l := loop{innerOperations: tt.loopCommands}
-			// nolint scopelint
 			l.execute(tt.args)
-			// nolint scopelint
 			if !reflect.DeepEqual(tt.expected, *tt.args) {
 				t.Errorf("Test failed %s expected: %v, got: %v", tt.name, tt.expected, tt.args)
 			}

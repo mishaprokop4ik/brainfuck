@@ -11,5 +11,5 @@ const defaultDataIn string = ">++++++++[<+++++++++>-]" +
 	".>>>++++[<++++++++>-]<+."
 
 func main() {
-	interpreter.Interpret(defaultDataIn, nil)
+	interpreter.Interpret(defaultDataIn)
 }
