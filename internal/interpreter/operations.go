@@ -54,7 +54,7 @@ func (output) execute(m *memory) {
 }
 
 // loop contains inner operations and runs them while cell
-// to which pointer indexes is not equal zero
+// to which pointer indexes is not equal to zero
 type loop struct {
 	innerOperations []operation
 }
