@@ -3,22 +3,28 @@ package interpreter
 import "fmt"
 
 type operation interface {
-	Execute(m *memory)
+	execute(m *memory)
 }
 
-type IncrementPointer struct {}
+// incrementPointer adds to pointer one
+// if the pointer looks at the last cell
+// pointer moves to the start
+type incrementPointer struct{}
 
-func (IncrementPointer) Execute(m *memory) {
-	if m.pointer == len(m.cells) - 1 {
+func (incrementPointer) execute(m *memory) {
+	if m.pointer == len(m.cells)-1 {
 		m.pointer = 0
 	} else {
 		m.pointer++
 	}
 }
 
-type DecrementPointer struct {}
+// decrementPointer minuses pointer by one
+// if the pointer looks at the first cell
+// pointer moves to the end
+type decrementPointer struct{}
 
-func (DecrementPointer) Execute(m *memory) {
+func (decrementPointer) execute(m *memory) {
 	if m.pointer == 0 {
 		m.pointer = len(m.cells) - 1
 	} else {
@@ -26,32 +32,37 @@ func (DecrementPointer) Execute(m *memory) {
 	}
 }
 
-type IncrementCell struct {}
+// incrementCell adds to the current cell one
+type incrementCell struct{}
 
-func (IncrementCell) Execute(m *memory) {
+func (incrementCell) execute(m *memory) {
 	m.cells[m.pointer]++
 }
 
-type DecrementCell struct {}
+// decrementCell minuses one from the current cell
+type decrementCell struct{}
 
-func (DecrementCell) Execute(m *memory) {
+func (decrementCell) execute(m *memory) {
 	m.cells[m.pointer]--
 }
 
-type Output struct {}
+// output prints current cell to os.Stdout in ASCII representation
+type output struct{}
 
-func (Output) Execute(m *memory) {
+func (output) execute(m *memory) {
 	fmt.Print(string(m.cells[m.pointer]))
 }
 
-type Loop struct {
+// loop contains inner operations and runs them while cell
+// to which pointer indexes is not equal to zero
+type loop struct {
 	innerOperations []operation
 }
 
-func (l *Loop) Execute(m *memory) {
+func (l *loop) execute(m *memory) {
 	for m.cells[m.pointer] != 0 {
 		for _, o := range l.innerOperations {
-			o.Execute(m)
+			o.execute(m)
 		}
 	}
 }

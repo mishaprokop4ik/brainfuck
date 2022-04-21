@@ -24,4 +24,4 @@ func main() {
 	}
 
 	interpreter.Interpret(dataIn.OutText())
-}
+)

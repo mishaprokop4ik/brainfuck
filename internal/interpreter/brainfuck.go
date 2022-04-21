@@ -1,23 +1,27 @@
 package interpreter
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func Interpret(program string)  {
-	operations := findCommands(program)
-
+// Interpret gets a brainfuck operations as a string.
+// These operations will be converted into go methods
+// and after it all methods will be run
+// if some unexpected symbol in input - program will panic
+func Interpret(program string) {
+	operations := findOperations(program)
 	m := newMemory(memorySize)
 
 	for _, o := range operations {
-		o.Execute(m)
+		o.execute(m)
 	}
-	fmt.Println()
 }
 
-func findCommands(program string) []operation {
+func findOperations(program string) []operation {
 	var stack = &[][]operation{{}}
 	for i, symbol := range program {
-		if o, ok := commands[symbol]; ok {
-			o(stack)
+		if instruction, ok := instructions[symbol]; ok {
+			instruction(stack)
 		} else {
 			panic(fmt.Sprintf("unexpected symbol in brainfuck %s in %d place", string(symbol), i+1))
 		}

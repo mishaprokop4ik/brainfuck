@@ -3,46 +3,46 @@ package interpreter
 const memorySize int = 30000
 
 type memory struct {
-	cells []byte
+	cells   []byte
 	pointer int
 }
 
-func newMemory(m int) *memory {
+func newMemory(size int) *memory {
 	return &memory{
-		cells:   make([]byte, m),
+		cells:   make([]byte, size),
 		pointer: 0,
 	}
 }
 
 func addOperation(stack *[][]operation, o operation) {
-	operations := (*stack)[len(*stack) - 1]
-	(*stack)[len(*stack) - 1] = append(operations, o)
+	operations := (*stack)[len(*stack)-1]
+	(*stack)[len(*stack)-1] = append(operations, o)
 }
 
 type instruction func(stack *[][]operation)
 
-var commands = map[rune]instruction{
+var instructions = map[rune]instruction{
 	'>': func(stack *[][]operation) {
-		addOperation(stack, IncrementPointer{})
+		addOperation(stack, incrementPointer{})
 	},
 	'<': func(stack *[][]operation) {
-		addOperation(stack, DecrementPointer{})
+		addOperation(stack, decrementPointer{})
 	},
 	'+': func(stack *[][]operation) {
-		addOperation(stack, IncrementCell{})
+		addOperation(stack, incrementCell{})
 	},
 	'-': func(stack *[][]operation) {
-		addOperation(stack, DecrementCell{})
+		addOperation(stack, decrementCell{})
 	},
 	'.': func(stack *[][]operation) {
-		addOperation(stack, Output{})
+		addOperation(stack, output{})
 	},
 	'[': func(stack *[][]operation) {
 		*stack = append(*stack, []operation{})
 	},
 	']': func(stack *[][]operation) {
-		loopStack := (*stack)[len(*stack) - 1]
-		*stack = (*stack)[:len(*stack) - 1]
-		addOperation(stack, &Loop{innerOperations: loopStack})
+		loopStack := (*stack)[len(*stack)-1]
+		*stack = (*stack)[:len(*stack)-1]
+		addOperation(stack, &loop{innerOperations: loopStack})
 	},
 }

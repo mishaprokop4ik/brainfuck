@@ -2,12 +2,18 @@
 
 Simple brainfuck interpreter for options to extensions
 
+## Tests
+#### To run tests run from cmd write:
+```bash
+make test
+```
+
 ## Installation
 
-Use the git to install interpreter.
+Use the go get to install interpreter.
 
 ```bash
-git clone https://github.com/mishaprokop4ik/brainfuck
+go get github.com/mishaprokop4ik/brainfuck
 ```
 
 ## Usage
@@ -15,9 +21,29 @@ git clone https://github.com/mishaprokop4ik/brainfuck
 Go to brainfuck folder
 
 ```bash
-go run cmd/main.go -f brainfuck_example.b
+go run main.go -f brainfuck_example.b
+```
 or
-go run cmd/main.go
+```bash
+go run main.go
+```
+
+## Make operations
+lint project by golint 
+```bash
+make lint
+```
+fmt project
+```bash
+make fmt
+```
+Pre commit operations: fmt lint and test operations
+```bash
+make precommit
+```
+build binary file of project
+```bash
+make build
 ```
 
 ## Contributing
